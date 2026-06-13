@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To‑Do List</title>
+
+  <!-- Font Awesome for bin icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      background-color: rgb(60, 60, 255);
+    }
+
+    .card {
+      height: 600px;
+      width: 600px;
+      border-radius: 5px;
+      background-color: #fff;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 50px;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.65);
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin-bottom: 30px;
+    }
+
+    #data {
+      width: 70%;
+      height: 50px;
+      border-radius: 5px;
+      text-indent: 15px;
+      border: 1px solid rgb(201, 201, 201);
+      font-size: 18px;
+      outline: none;
+    }
+
+    #btn {
+      height: 50px;
+      width: 50px;
+      background-color: rgb(167, 0, 209);
+      color: white;
+      font-size: 30px;
+      border: none;
+      border-radius: 5px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .btn1 {
+      background-color: #e63946;
+      border: none;
+      color: white;
+      font-size: 16px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn1:hover {
+      background-color: #b71c1c;
+    }
+
+    #list {
+      margin-top: 30px;
+      list-style-type: none;
+      padding: 0;
+      text-align: left;
+    }
+
+    .list {
+      background-color: #f5f5f5;
+      width:400px;
+      border-radius: 5px;
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      left: 80px;
+    }
+
+    .clear-btn {
+      background-color: #ff4444;
+      border: none;
+      color: white;
+      font-size: 18px;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 20px;
+    }
+
+    .clear-btn:hover {
+      background-color: #cc0000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>Todo App</h1>
+    <div class="data">
+      <input type="text" id="data" placeholder="Enter your task">
+      <input type="button" value="+" id="btn" onclick="addtask()">
+    </div>
+    <ul id="list"></ul>
+    <button id="clearBtn" class="clear-btn" onclick="clearAll()">Clear All (0 pending tasks)</button>
+  </div>
+
+  <script>
+    let allTasks = [];
+
+    function refreshTask() {
+      let TaskHtml = "";
+      let pendingCount = 0;
+
+      for (let index = 0; index < allTasks.length; index++) {
+        if (allTasks[index] != "") {
+          pendingCount++;
+          TaskHtml +=
+            "<li class='list'>" +
+            allTasks[index] +
+            " <button class='btn1' onclick='Deletetask(" + index + ")'><i class='fa-solid fa-trash'></i></button>" +
+            "</li>";
+        }
+      }
+      document.getElementById("list").innerHTML = TaskHtml;
+
+    
+      document.getElementById("clearBtn").innerText =
+        "Clear All (" + pendingCount + " pending tasks)";
+    }
+
+    function addtask() {
+      let task = document.getElementById("data").value.trim();
+      if (task !== "") {
+        allTasks.push(task);
+        document.getElementById("data").value = "";
+        refreshTask();
+      }
+    }
+
+    function Deletetask(index) {
+      allTasks[index] = "";
+      refreshTask();
+    }
+
+    function clearAll() {
+     allTasks = [];      
+     refreshTask();       
+}
+
+  </script>
+</body>
+
+</html>
